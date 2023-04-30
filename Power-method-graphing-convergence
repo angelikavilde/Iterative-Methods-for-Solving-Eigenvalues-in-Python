@@ -1,0 +1,33 @@
+import matplotlib.pyplot as plt
+#import numpy as np
+
+#Power method for dominant eigenvector
+def power_iteration(A,g,k):
+
+    for i in range (1,k):
+        g = np.dot(A,g)
+        x = max(g)
+        g = g/x
+
+    eig = np.dot(np.dot(A,g),g)/np.dot(g,g)
+    return eig
+A = np.array([[3, 2, -1],
+              [-1, 1, 2],
+              [1, 0, 2]])
+
+g = np.array([1,1,1])
+
+for j in range (2,21):
+    x = power_iteration(A,g,j)
+    x = round(x, 2) #Rounding for the labels to be smaller
+    plt.scatter(x, j-1, color='black') #Plotting points
+    plt.annotate(f"({x}, {j-1})", (x, j-1)) #Labelling points on the graph
+
+#Reduced graph size
+plt.xlim(2.7, 3.3)
+plt.ylim(0, 20)
+#Labelling x and y axis
+plt.xlabel("Dominant eigenvalue")
+plt.ylabel("Number of iterations")
+
+plt.show()
